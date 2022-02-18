@@ -18,8 +18,11 @@ df = df[(df["value"] > q_bottom) & (df["value"] > q_top)]
 def draw_line_plot():
     # Draw line plot
 
+    df.plot(color = "red", legend = False)
 
-
+    plt.title("Daily freeCodeCamp Forum Page Views 5/2016-12/2019")
+    plt.xlabel("Date")
+    plt.ylabel("Page Views")
 
 
     # Save image and return fig (don't change this part)
