@@ -35,9 +35,10 @@ def draw_bar_plot():
     df["month"] = pd.DatetimeIndex(df.index).month_name()
   
     # Copy and modify data for monthly bar plot
-    df_bar = df.groupby(["year", "month"]).mean()
+    df_bar = df.groupby(["year", "month"], sort = False).mean().reset_index()
 
     # Draw bar plot
+    fig = sns.catplot(x = "year", y = "value", hue = "month", kind = "bar", data = df_bar)
 
 
 
