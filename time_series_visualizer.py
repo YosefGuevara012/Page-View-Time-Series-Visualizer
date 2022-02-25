@@ -12,7 +12,7 @@ df = pd.read_csv('fcc-forum-pageviews.csv', index_col = "date")
 q_bottom = df["value"].quantile(q = 0.025) 
 q_top = df["value"].quantile(q = 0.975)
 
-df = df[(df["value"] > q_bottom) & (df["value"] > q_top)]
+df = df[(df["value"] > q_bottom) & (df["value"] < q_top)]
 
 
 def draw_line_plot():
@@ -24,7 +24,8 @@ def draw_line_plot():
     plt.xlabel("Date")
     plt.ylabel("Page Views")
 
-
+    plt.show()
+  
     # Save image and return fig (don't change this part)
     fig.savefig('line_plot.png')
     return fig
@@ -45,7 +46,8 @@ def draw_bar_plot():
     plt.legend(title = "Months", labels = ['January', 'February', 'March', 'April', 'May', 'June',
                                            'July', 'August', 'September', 'October', 'November', 'December'])
 
-
+    plt.show()
+  
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
     return df_bar
