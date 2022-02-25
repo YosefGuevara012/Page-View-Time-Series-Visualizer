@@ -18,7 +18,7 @@ df = df[(df["value"] > q_bottom) & (df["value"] > q_top)]
 def draw_line_plot():
     # Draw line plot
 
-    df.plot(color = "red", legend = False)
+    fig = df.plot(color = "red", legend = False)
 
     plt.title("Daily freeCodeCamp Forum Page Views 5/2016-12/2019")
     plt.xlabel("Date")
@@ -32,21 +32,23 @@ def draw_line_plot():
 def draw_bar_plot():
 
     df["year"] = pd.DatetimeIndex(df.index).year
-    df["month"] = pd.DatetimeIndex(df.index).month_name()
+    df["month"] = pd.DatetimeIndex(df.index).month
   
     # Copy and modify data for monthly bar plot
-    df_bar = df.groupby(["year", "month"], sort = False).mean().reset_index()
+    df_bar = df.groupby(["year", "month"])["value"].mean()
+    df_bar = df_bar.unstack()
 
     # Draw bar plot
-    fig = sns.catplot(x = "year", y = "value", hue = "month", kind = "bar", data = df_bar)
-
-
-
+    fig = df_bar.plot(kind = "bar", legend = True).figure
+    plt.xlabel("Years")
+    plt.ylabel("Average Page Views")
+    plt.legend(title = "Months", labels = ['January', 'February', 'March', 'April', 'May', 'June',
+                                           'July', 'August', 'September', 'October', 'November', 'December'])
 
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
-    return fig
+    return df_bar
 
 def draw_box_plot():
     # Prepare data for box plots (this part is done!)
@@ -62,5 +64,6 @@ def draw_box_plot():
 
 
     # Save image and return fig (don't change this part)
-    fig.savefig('box_plot.png')
-    return fig
+    #fig.savefig('box_plot.png')
+    return df_box['month']
+    #return fig
