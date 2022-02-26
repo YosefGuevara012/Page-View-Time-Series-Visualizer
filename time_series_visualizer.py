@@ -48,7 +48,7 @@ def draw_bar_plot():
   
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
-    return df_bar
+    return fig
 
 def draw_box_plot():
     # Prepare data for box plots (this part is done!)
