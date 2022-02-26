@@ -30,11 +30,13 @@ def draw_line_plot():
 
 def draw_bar_plot():
 
-    df["year"] = pd.DatetimeIndex(df.index).year
-    df["month"] = pd.DatetimeIndex(df.index).month
+    df_bar = df.copy()
+    
+    df_bar["year"] = pd.DatetimeIndex(df_bar.index).year
+    df_bar["month"] = pd.DatetimeIndex(df_bar.index).month
   
     # Copy and modify data for monthly bar plot
-    df_bar = df.groupby(["year", "month"])["value"].mean()
+    df_bar = df_bar.groupby(["year", "month"])["value"].mean()
     df_bar = df_bar.unstack()
   
     # Draw bar plot
